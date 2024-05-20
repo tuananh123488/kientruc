@@ -1,0 +1,32 @@
+<div class="mt-4">
+    <form method="post" action="/monhocs/{{monhocs._id}}?_method=PUT" class="container-fl px-2 py-3 text-lg-start my-2">
+        <div class="form-row">
+            <div class="col">
+                <label for="ho" class="form-label">Tên môn học</label>
+                <input type="text" class="form-control" id="tenMonHoc" name="tenMonHoc" style="width: 500px;"
+                    value="{{monhocs.tenMonHoc}}">
+            </div>
+            <div class="col">
+                <label for="ho" class="form-label">Tín chỉ</label>
+                <input type="text" class="form-control" id="tinChi" name="tinChi" style="width: 500px;"
+                    value="{{monhocs.tinChi}}">
+            </div>
+            <div class="col">
+                <label for="ho" class="form-label">Tiết thực hành</label>
+                <input type="text" class="form-control" id="tietLyThuyet" name="tietLyThuyet" style="width: 500px;"
+                    value="{{monhocs.tietLyThuyet}}">
+            </div>
+            <div class="col">
+                <label for="ho" class="form-label">Tiết lý thuyết</label>
+                <input type="text" class="form-control" id="tietThucHanh" name="tietThucHanh" style="width: 500px;"
+                    value="{{monhocs.tietThucHanh}}">
+            </div>
+        </div>
+        <div class="them" style="text-align: center;">
+            <button type="submit" class="btn btn-outline-success" style="width: 200px; margin-top: 50px;">Sửa</button>
+        </div>
+    </form>
+
+
+
+</div>

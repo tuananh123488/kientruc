@@ -1,0 +1,137 @@
+<div
+    style="width: 90%; height: 45vh; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.05); border: 2px solid #E3E3E3; border-radius: 10px;">
+
+    <div
+        style="margin: 0 10px ; border-bottom: 1px solid #E3E3E3; font-size: 30px; height: 15%; display: flex; justify-content: center; align-items: center; font-family: Roboto;">
+        Thông tin sinh viên</div>
+
+    <div style="display: flex; height: 85%;">
+
+        <div style="width: 25%; display: flex; align-items: center; justify-content: center;">
+            <img src={{users.img}} alt=""
+                style="width: 200px; height: 200px; border-radius: 50%; border: 1px solid #E3E3E3;">
+        </div>
+
+        <div style="width: 75%; display: flex; align-items: center; justify-content: space-around;font-size: 20px;">
+
+            <div>
+                <div style="padding: 5px;">
+                    <label>MSSV:</label>
+                    <span style="font-weight: bold;">{{users.username}}</span>
+                </div>
+                <div style="padding: 5px;">
+                    <label>Họ tên:</label>
+                    <span style="font-weight: bold;">{{users.hoTen}}</span>
+                </div>
+                <div style="padding: 5px;">
+                    <label>Giới tính:</label>
+                    <span style="font-weight: bold;">{{users.gioiTinh}}</span>
+                </div>
+                <div style="padding: 5px;">
+                    <label>Tuổi:</label>
+                    <span style="font-weight: bold;">{{users.tuoi}}</span>
+                </div>
+                <div style="padding: 5px;">
+                    <label>Nơi sinh:</label>
+                    <span style="font-weight: bold;">{{users.noiSinh}}</span>
+                </div>
+            </div>
+
+            <div>
+                <div style="padding: 5px;">
+                    <label>Lớp học:</label>
+                    <span style="font-weight: bold;">{{lophocs.tenLopHoc}}</span>
+                </div>
+                <div style="padding: 5px;">
+                    <label>Bậc đào tạo:</label>
+                    <span style="font-weight: bold;">Đại học</span>
+                </div>
+
+                <div style="padding: 5px;">
+                    <label>Ngành:</label>
+                    <span style="font-weight: bold;">{{lophocs.chuyenNganh.tenNganh}}</span>
+                </div>
+                <div style="padding: 5px;">
+                    <label>Khoa:</label>
+                    <span style="font-weight: bold;">{{lophocs.chuyenNganh.khoa.tenKhoa}}</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div
+    style="width: 90%; height: 45vh; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.05); border: 2px solid #E3E3E3; border-radius: 10px; display: flex;">
+
+    <div
+        style="width: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+
+        <div
+            style="height: 40%; border: 2px solid #E3E3E3; width: 90%; border-radius: 10px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.05); margin: 2%; justify-content: center; display: flex; flex-direction: column; font-size: 18px; background: white;">
+            <div style="margin-left: 30px;">
+                <div>Nhắc nhở mới, chưa xem</div>
+                <div style="font-size: 30px;">0</div>
+                <div>Xem chi tiết</div>
+            </div>
+
+        </div>
+
+        <div style="height: 40%; display: flex; width: 90%; margin: 2%;">
+
+            <div
+                style="border: 2px solid #E3E3E3;width: 50%;height: 100%; border-radius: 10px; background: #b3ecff; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.05); margin-right: 2%; justify-content: center; display: flex; flex-direction: column; color: #00ace6; font-size: 18px;">
+
+                <div style="margin-left: 30px;">
+                    <div>Lịch học theo tuần</div>
+                    <div style="font-size: 30px;">0</div>
+                    <div>Xem chi tiết</div>
+                </div>
+
+            </div>
+
+            <div
+                style="border: 2px solid #E3E3E3; width: 50%;height: 100%; background: #ffffb3; border-radius: 10px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.05); margin-left: 2%; justify-content: center; display: flex; flex-direction: column; color: #999900; font-size: 18px;">
+
+                <div style="margin-left: 30px;">
+                    <div>Lịch thi trong tuần</div>
+                    <div style="font-size: 30px;">0</div>
+                    <div>Xem chi tiết</div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        style="width: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+
+        <div
+            style="height: 88%; border: 2px solid #E3E3E3; width: 90%; border-radius: 10px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.05); background: white; position: relative;">
+
+            <div style="height: 15%; display: flex; justify-content: space-around;">
+                <div>Môn học phần</div>
+                <div>Số tín chỉ</div>
+            </div>
+
+            <div style="height: 70%; overflow-y: scroll;">
+                {{#each dkhps}}
+                <div style="display: flex; justify-content: space-around; border-top: 1px #E3E3E3 solid;">
+                    <div style="display: flex; flex-direction: column;width: 75%;">
+                        <div style="color: #00ace6;">{{this.hocPhan.lopHoc.tenLopHoc}}</div>
+                        <div>{{this.hocPhan.monHoc.tenMonHoc}}</div>
+                    </div>
+                    <div style="width: 25%;">{{this.hocPhan.monHoc.tinChi}}</div>
+                </div>
+                {{/each}}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,128 @@
+<div class="container mt-5">
+    <div class="avatar">
+        <img src="{{users.img}}" alt="">
+        <div class="HoTen">
+            <h1>{{users.name}}</h1>
+            <p>Update your username and manage your account</p>
+        </div>
+    </div>
+    <div class="col-lg-12 menu-and-treatment" style="display: flex; sans-serif;">
+        <div class="col-lg-4 menus" style="margin-top: 10px;">
+            <div class='menu-item general active'><a class="dropdown-item" style="width: 300px; margin-left: 1px;"
+                    href="/profiles/general">General</a></div>
+            <div hidden class="edit"><a class="dropdown-item" style="width: 300px; margin-left: 1px;"
+                    href="/profiles/editprofile">Edit Profile</a></div>
+            <div class='menu-item general active'><a class="dropdown-item" style="width: 300px; margin-left: 1px;"
+                    href="/profiles/editpassword">Password</a></div>
+            <div class='cut-across'></div>
+            <div class='menu-item' onclick="deleteUser()" style='color : red; margin-left: 20px;width: 300px;'>Delete
+                Account</div>
+        </div>
+        <div class="col-lg-8 ">
+
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="username" class="form-control" id="username" disabled value="{{users.username}}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email </label>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp"
+                    value="{{users.email}}">
+
+            </div>
+            <button onclick="saveChange()" type="submit" class="btn btn-primary" style="float: right;">Save
+                Change</button>
+
+
+        </div>
+    </div>
+</div>
+<script>
+    function saveChange() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var username = $('#username').val();
+        var email = $('#email').val();
+        if (email.trim() === '' || !emailRegex.test(email)) {
+            alert('Không được để trống Email và nhập theo form: example@example.com')
+            window.location.reload()
+            return;
+        }
+
+        $.ajax({
+            url: '/profiles/general/edit', // Đường dẫn tới endpoint kiểm tra cookie
+            type: 'PUT',
+            data: {
+                username: username,
+                email: email
+            }
+        })
+            .then(data => {
+                if (data.code === 500) {
+                    alert('Email đã tồn tại')
+
+                }
+                else if (data.code === 200) {
+                    alert('Sửa thành công')
+
+                }
+                else {
+                    alert('Bạn không có quyền được sữa')
+                }
+                window.location.reload()
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+    }
+
+
+</script>
+<script>
+    function deleteUser() {
+        $.ajax({
+            url: '/profiles/delete-user/?_method=DELETE',
+            type: 'POST'
+
+        })
+            .then(data => {
+                if (data.code === 200) {
+                    $.ajax({
+                        url: '/check-token', // Đường dẫn tới endpoint kiểm tra cookie
+                        type: 'GET',
+
+                    })
+                        .then(data => {
+                            setCookie("token", data.token, 0)
+
+                        })
+                    alert('Xóa account thành công')
+                    window.location.href = "/account/signin"
+                    return;
+                }
+                else {
+                    alert('Fail!')
+                }
+
+
+            })
+            .catch(error => {
+                console.log('Lỗi ròi')
+            })
+    }
+    $.ajax({
+        url: '/check-cookie', // Đường dẫn tới endpoint kiểm tra cookie
+        type: 'GET',
+
+    })
+        .then(res => {
+            if (res.code === 200) {
+
+
+            }
+        })
+        .catch(error => {
+            console.log('Lỗi hệ thống')
+        })
+</script>

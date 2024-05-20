@@ -1,0 +1,111 @@
+<div class="container-fluid body-table">
+    <div class="head">
+        <h1>DANH SÁCH HỌC PHẦN ĐÃ ĐĂNG KÍ</h1>
+    </div>
+    <div class="table-students" style="overflow-y: scroll;height: 60vh;">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Mã học phần</th>
+                    <th scope="col">Lớp học phần</th>
+                    <th scope="col">Môn học</th>
+                    <th scope="col">Giáo viên</th>
+                    <th scope="col">Lý thuyết </th>
+                    <th scope="col">Thực hành</th>
+                    <th scope="col">Học phí</th>
+                    <th scope="col">ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each dkhps}}
+                <tr>
+                    <th scope="row">{{this.hocPhan._id}}</th>
+                    <td>{{this.hocPhan.lopHoc.tenLopHoc}}</td>
+                    <td>{{this.hocPhan.monHoc.tenMonHoc}}</td>
+
+                    <td>{{this.hocPhan.giaoVien.username}}</td>
+
+                    <td>{{this.hocPhan.lyThuyet}}</td>
+
+                    <td>{{this.hocPhan.thucHanh}}</td>
+
+                    <td class="tinChi">{{this.hocPhan.monHoc.tinChi}}</td>
+
+                    <td>
+                        <a href="" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-modal"
+                            class="btn btn-link ">Xóa</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="total-fee-container" style="text-align: end;padding: 30px;">
+        <h5>Học phí cần thanh toán: <span id="total-fee">0</span> VND</h5>
+        <div class="button-container">
+            <button style="padding: 15px;background-color:  rgb(194, 246, 145);border-radius: 10px;">Thanh toán</button>
+        </div>
+    </div>
+</div>
+
+{{!-- Model --}}
+
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận "Xóa"</h5>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="btn-delete-sv" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Delete hidden form --}}
+<form method="post" name="delete-form-sv">
+
+</form>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tinChiCells = document.querySelectorAll('.tinChi');
+        let totalFee = 0;
+
+        tinChiCells.forEach(cell => {
+            const tinChi = parseInt(cell.innerText, 10);
+            const hocPhi = tinChi * 900000;
+            totalFee += hocPhi;
+            cell.innerText = hocPhi.toLocaleString();
+        });
+
+        document.getElementById('total-fee').innerText = totalFee.toLocaleString();
+    });
+</script>
+
+<script>
+    var svId;
+    var deleteForm = document.forms["delete-form-sv"];
+    // Khi đã load xong thì sẽ lắng nghe event bên trong
+    document.addEventListener('DOMContentLoaded', function () {
+        // Khi nhấn vào xóa
+        $('#delete-modal').on('show.bs.modal', function (event) { // lấy id
+            var button = $(event.relatedTarget)
+            svId = button.data('id')
+
+        });
+        // Khi nhấn vào nút delete
+        var btnDeleteSV = document.getElementById('btn-delete-sv') // lấy địa chỉ nút delete
+        btnDeleteSV.onclick = function () { // bắt đầu lắng nghe sự kiện
+            deleteForm.action = '/dkhps/' + svId + '?_method=DELETE';
+            deleteForm.submit(); // submit cho form
+        }
+
+    })
+
+</script>

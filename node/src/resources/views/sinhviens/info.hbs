@@ -1,0 +1,89 @@
+<div class="container-fluid body-table">
+    <div class="head">
+        <h1>Danh sách học viên</h1>
+    </div>
+    <div class="table-students " style="overflow-y: scroll;height: 60vh;">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+
+                    <th scope="col">MSSV</th>
+                    <th scope="col">Họ tên</th>
+                    <th scope="col">tuoi</th>
+                    <th scope="col">Giới tính</th>
+                    <th scope="col">Nơi sinh</th>
+                    <th scope="col">Hình ảnh</th>
+                    <th scope="col">Chỉnh sửa</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each hocviens}}
+                <tr>
+                    <th scope="row">{{this.username}}</th>
+                    <td>{{this.hoTen}}</td>
+                    <td>{{this.tuoi}}</td>
+                    <td>{{this.gioiTinh}}</td>
+                    <td>{{this.noiSinh}}</td>
+                    <td><img src="{{this.img}}" alt="" style="width: 80px; height: 80px; border-radius: 50%;"></td>
+                    <td>
+                        <a href="/hocviens/{{this._id}}/edit" class="btn btn-link ">Sửa</a>
+                        <a href="" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-modal"
+                            class="btn btn-link ">Xóa</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="inserthv" style="margin-top: 50px; text-align: center;">
+
+        <a href="/account/signup"
+            style="text-decoration: none; background-color: antiquewhite;padding: 10px;color: black ;border-radius: 5px;">Thêm
+            sinh
+            viên</a></p>
+    </div>
+</div>
+
+{{!-- Model --}}
+
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận "Xóa"</h5>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="btn-delete-sv" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Delete hidden form --}}
+<form method="post" name="delete-form-sv">
+
+</form>
+<script>
+    var svId;
+    var deleteForm = document.forms["delete-form-sv"];
+    // Khi đã load xong thì sẽ lắng nghe event bên trong
+    document.addEventListener('DOMContentLoaded', function () {
+        // Khi nhấn vào xóa
+        $('#delete-modal').on('show.bs.modal', function (event) { // lấy id
+            var button = $(event.relatedTarget)
+            svId = button.data('id')
+
+        });
+        // Khi nhấn vào nút delete
+        var btnDeleteSV = document.getElementById('btn-delete-sv') // lấy địa chỉ nút delete
+        btnDeleteSV.onclick = function () { // bắt đầu lắng nghe sự kiện
+            deleteForm.action = '/hocviens/' + svId + '?_method=DELETE';
+            deleteForm.submit(); // submit cho form
+        }
+
+    })
+
+</script>

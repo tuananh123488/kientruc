@@ -1,0 +1,79 @@
+<div class="container-fluid body-table">
+    <div class="head">
+        <h2>DANH SÁCH KHOA</h2>
+    </div>
+    <div class="table-students" style="overflow-y: scroll;height: 60vh;">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Mã Khoa</th>
+                    <th scope="col">Tên Khoa</th>
+                    <th scope="col">Chỉnh sửa</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each khoas}}
+                <tr>
+                    <th scope="row">{{this._id}}</th>
+                    <td>{{this.tenKhoa}}</td>
+                    <td>
+                        <a href="/khoas/{{this._id}}/edit" class="btn btn-link ">Sửa</a>
+                        <a href="" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-modal"
+                            class="btn btn-link ">Xóa</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="inserthv" style="margin-top: 50px; text-align: center;">
+        <a href="/khoas/themkhoa" class="btn btn-primary"
+            style="border-top: 30px;,height: 100px; width: 200px; text-align: center; background-color: chocolate; border-color: chocolate;">Thêm
+            khoa
+        </a>
+    </div>
+</div>
+
+{{!-- Model --}}
+
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận "Xóa"</h5>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="btn-delete-sv" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Delete hidden form --}}
+<form method="post" name="delete-form-sv">
+
+</form>
+<script>
+    var svId;
+    var deleteForm = document.forms["delete-form-sv"];
+    // Khi đã load xong thì sẽ lắng nghe event bên trong
+    document.addEventListener('DOMContentLoaded', function () {
+        // Khi nhấn vào xóa
+        $('#delete-modal').on('show.bs.modal', function (event) { // lấy id
+            var button = $(event.relatedTarget)
+            svId = button.data('id')
+
+        });
+        // Khi nhấn vào nút delete
+        var btnDeleteSV = document.getElementById('btn-delete-sv') // lấy địa chỉ nút delete
+        btnDeleteSV.onclick = function () { // bắt đầu lắng nghe sự kiện
+            deleteForm.action = '/khoas/' + svId + '?_method=DELETE';
+            deleteForm.submit(); // submit cho form
+        }
+
+    })
+
+</script>

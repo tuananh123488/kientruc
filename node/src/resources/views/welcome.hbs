@@ -1,0 +1,174 @@
+<div class="container-fluid mt-2" style="">
+
+    <section class="background-radial-gradient overflow-hidden ">
+        <style>
+            .container-fluid {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                /* Chiều cao toàn màn hình */
+            }
+
+            .background-radial-gradient {
+                background-color: hsl(218, 41%, 15%);
+                background-image: radial-gradient(650px circle at 0% 0%,
+                        hsl(218, 41%, 35%) 15%,
+                        hsl(218, 41%, 30%) 35%,
+                        hsl(218, 41%, 20%) 75%,
+                        hsl(218, 41%, 19%) 80%,
+                        transparent 100%),
+                    radial-gradient(1250px circle at 100% 100%,
+                        hsl(218, 41%, 45%) 15%,
+                        hsl(218, 41%, 30%) 35%,
+                        hsl(218, 41%, 20%) 75%,
+                        hsl(218, 41%, 19%) 80%,
+                        transparent 100%);
+                border-radius: 3%;
+                width: 1500px;
+
+                    {
+                        {
+                        !-- height: 620px;
+                        --
+                    }
+                }
+            }
+
+            #radius-shape-1 {
+                height: 220px;
+                width: 220px;
+                top: -60px;
+                left: -130px;
+                background: radial-gradient(#44006b, #ad1fff);
+                overflow: hidden;
+            }
+
+            #radius-shape-2 {
+                border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+                bottom: -60px;
+                right: -110px;
+                width: 300px;
+                height: 300px;
+                background: radial-gradient(#44006b, #ad1fff);
+                overflow: hidden;
+            }
+
+            .bg-glass {
+                background-color: hsla(0, 0%, 100%, 0.9) !important;
+                backdrop-filter: saturate(200%) blur(25px);
+                width: 500px;
+            }
+        </style>
+
+        <div class="container-fl px-2 py-3 px-md-5 text-center text-lg-start my-2">
+            <div class="row gx-lg-5 align-items-center mb-5">
+                <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                    <h1 class="my-5 display-3 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                        Welcome to <br />
+                        <span style="color: hsl(218, 81%, 75%)">IUH</span>
+                    </h1>
+                    <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+                        Trường Đại Học Công Nghiệp TP. Hồ Chí Minh. Cổng thông tin sinh viên
+                    </p>
+                </div>
+
+                <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+
+
+                    <div class="card bg-glass">
+                        <div class="card-body px-4 py-5 px-md-5">
+
+                            <!-- 2 column grid layout with text inputs for the first and last names -->
+                            <div class="row" style="margin-top: 20px;">
+                                <h1 class="mb-3 h3">Đăng nhập</h1>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" style="float: left;">Mã số sinh viên</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    placeholder="Username">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" style="float: left;">Mật khẩu</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Password">
+                            </div>
+
+
+                            <!-- Submit button -->
+                            <button type="submit" onclick="login()" class="btn btn-primary btn-block mb-4 login">
+                                Sign In
+                            </button>
+
+                            <!-- Register buttons -->
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function login() {
+        var username = $('#username').val();
+        var password = $('#password').val();
+
+        if (username.trim() === '' || password.trim() === '') {
+            alert('Vui lòng nhập tên username và password');
+            return;
+        }
+        $.ajax({
+            url: '/account/signin/login',
+            type: 'POST',
+            data: {
+
+                username: username,
+                password: password,
+            }
+        })
+            .then(data => {
+
+                setCookie("token", data.token, 1)
+                window.location.href = "/"
+
+            })
+            .catch(error => {
+                alert('Tài khoản hoặc mật khẩu không đúng')
+            })
+    }
+
+
+
+
+</script>
+
+{{!-- <form action="/account/signin/login" method="POST"></form>
+</form> --}}

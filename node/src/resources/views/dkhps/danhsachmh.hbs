@@ -1,0 +1,66 @@
+<div class="container-fluid body-table">
+    <div class="head">
+        <h2>DANH SÁCH MÔN HỌC PHẦN</h2>
+    </div>
+    <select name="" id="semester-select">
+        <option value="">Tất cả học kỳ</option>
+        {{#each hockys}}
+        <option value="{{this.tenHocKy}}">{{this.tenHocKy}}</option>
+        {{/each}}
+    </select>
+    <div class="table-students " style="overflow-y: scroll;height: 60vh;">
+        <table id="students-table" class="table" style="font-size: 13px;">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Mã học phần</th>
+                    <th scope="col">Lớp học phần</th>
+                    <th scope="col">Môn học</th>
+                    <th scope="col">Tín chỉ</th>
+                    <th scope="col">Giáo viên</th>
+                    <th scope="col">Lý thuyết</th>
+                    <th scope="col">Thực hành</th>
+                    <th scope="col">Phòng học</th>
+
+                    <th scope="col">ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each hocphans}}
+                <tr>
+                    <th scope="row">{{this._id}}</th>
+                    <td>{{this.lopHoc.tenLopHoc}}</td>
+                    <td>{{this.monHoc.tenMonHoc}}</td>
+                    <td>{{this.monHoc.tinChi}}</td>
+                    <td>{{this.giaoVien.username}}</td>
+                    <td>{{this.lyThuyet}}</td>
+                    <td>{{this.thucHanh}}</td>
+                    <td>{{this.phongHoc}}</td>
+                    <td class="hocKy" hidden>{{this.hocKy.tenHocKy}}</td>
+                    <td>
+                        <a href="/dkhps/{{this._id}}/dkhp" class="btn btn-link ">Đăng kí học phần </a>
+                    </td>
+
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<script>
+    document.getElementById('semester-select').addEventListener('change', function () {
+        var selectedSemester = this.value;
+        var rows = document.querySelectorAll('#students-table tbody tr');
+
+        rows.forEach(function (row) {
+            var hocKy = row.querySelector('.hocKy').textContent;
+            if (hocKy === selectedSemester || selectedSemester === "") {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>

@@ -1,0 +1,27 @@
+<div class="mt-4">
+    <form method="post" action="/lophocs/{{lophocs._id}}?_method=PUT" class="container-fl px-2 py-3 text-lg-start my-2">
+        <div class="form-row">
+
+            <div class="col">
+                <label for="tenLopHoc" class="form-label">Họ tên lớp</label>
+                <input type="text" class="form-control" id="tenLopHoc" name="tenLopHoc" value="{{lophocs.tenLopHoc}}"
+                    style="width: 500px;">
+            </div>
+            <div class="col">
+
+                <label class="form-label">Chọn chuyên ngành</label>
+                <select name="chuyennganhId" id="chuyennganhId" class="form-control" style="width: 500px;">
+                    {{#each chuyenNganhs}}
+                    <option value={{this._id}}>{{this.tenNganh}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="them" style="text-align: center;">
+            <button type="submit" class="btn btn-outline-success" style="width: 200px; margin-top: 50px;">Sửa</button>
+        </div>
+    </form>
+
+
+
+</div>

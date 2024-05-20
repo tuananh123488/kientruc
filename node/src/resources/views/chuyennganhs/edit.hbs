@@ -1,0 +1,30 @@
+<div class="mt-4">
+    <form method="post" action="/chuyennganhs/{{chuyennganhs._id}}?_method=PUT"
+        class="container-fl px-2 py-3 text-lg-start my-2">
+        <div class="form-row">
+
+            <div class="col">
+                <label for="ho" class="form-label">Tên ngành</label>
+                <input type="text" class="form-control" id="tenNganh" name="tenNganh" value="{{chuyennganhs.tenNganh}}"
+                    style="width: 500px;">
+            </div>
+            <div class="col">
+
+                <label for="khoa" class="form-label">Chọn Khoa</label>
+                <select name="khoaId" id="khoaId" class="form-control" style="width: 500px;">
+
+                    {{#each khoas}}
+                    <option value={{this._id}}>{{this.tenKhoa}}</option>
+                    {{/each}}
+
+                </select>
+            </div>
+        </div>
+        <div class="them" style="text-align: center;">
+            <button type="submit" class="btn btn-outline-success" style="width: 200px; margin-top: 50px;">Sửa</button>
+        </div>
+    </form>
+
+
+
+</div>

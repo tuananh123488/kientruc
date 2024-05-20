@@ -1,0 +1,30 @@
+<div class="mt-4">
+    <form method="post" action="/lophocs/themlophoc/insert" class="container-fl px-2 py-3 text-lg-start my-2"
+        style="margin-left: 150px;">
+        <div class="form-row">
+            <div class="col">
+                <label for="id">Mã lớp học</label>
+                <input type="text" class="form-control" id="_id" name="_id" style="width: 500px;">
+            </div>
+            <div class="col">
+                <label for="ho" class="form-label">Tên lớp học</label>
+                <input type="text" class="form-control" id="tenLopHoc" name="tenLopHoc" style="width: 500px;">
+            </div>
+            <div class="col">
+                <label for="siSo" class="form-label">Sỉ số lớp </label>
+                <input type="text" class="form-control" id="siSo" name="siSo" style="width: 500px;">
+            </div>
+            <div class="col">
+                <label for="chuyenNganhob" class="form-label">Chọn chuyên ngành</label>
+                <select name="chuyenNganhob" id="chuyenNganhob" class="form-control" style="width: 500px;">
+                    {{#each chuyenNganhs}}
+                    <option value={{this._id}}>{{this.tenNganh}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="them" style="text-align: center;">
+            <button type="submit" class="btn btn-outline-success" style="width: 200px; margin-top: 50px;">Thêm</button>
+        </div>
+    </form>
+</div>

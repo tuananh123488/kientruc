@@ -1,0 +1,31 @@
+<div style="height: 100vh; overflow-y: scroll; scrollbar-width: auto;width: 100%;">
+    <table style="width: 100%; border: 1px solid #ffffff; border-collapse: separate; border-spacing: 10 20px; ">
+        <tr>
+            <th
+                style="border: 2px solid #d9e1ea; padding-left: 10px; padding-right: 10px; background-color: #f2f6f9; color: #1da0f3; width: 33%;">
+                Ca học</th>
+            <th
+                style="border: 2px solid #d9e1ea; padding-left: 10px; padding-right: 10px; background-color: #f2f6f9; color: #1da0f3; width: 33%;">
+                Lý thuyết</th>
+            <th
+                style="border: 2px solid #d9e1ea; padding-left: 10px; padding-right: 10px; background-color: #f2f6f9; color: #1da0f3; width: 33%;">
+                Thực hành</th>
+        </tr>
+        {{#each dkhps}}
+        <tr>
+            <td style=" border: 1px solid #d9e1ea;">
+                <div style="padding: 5px; margin: 5px; border-radius: 5px; font-size: 15px;">
+                    <h4>{{ this.hocPhan.monHoc.tenMonHoc }}</h4>
+                    <p>Lớp:{{ this.hocPhan.lopHoc.tenLopHoc }} </p>
+                    <p>Mã học phần:{{ this.hocPhan._id }} </p>
+                    <p>Phòng: {{ this.hocPhan.phongHoc}}</p>
+                    <p>GV:{{ this.hocPhan.giaoVien.username }}</p>
+                </div>
+            </td>
+            <td style=" border: 1px solid #d9e1ea; text-align: center;font-size: 18px;"> {{ this.hocPhan.lyThuyet }}
+            </td>
+            <td style=" border: 1px solid #d9e1ea;text-align: center;font-size: 18px;"> {{this.hocPhan.thucHanh}}</td>
+        </tr>
+        {{/each }}
+    </table>
+</div>

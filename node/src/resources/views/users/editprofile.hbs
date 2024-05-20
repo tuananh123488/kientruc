@@ -1,0 +1,157 @@
+<div class="container mt-5">
+    <div class="avatar">
+        <img src={{users.img}} alt="">
+        <div class="HoTen">
+            <h1>{{users.name}}</h1>
+            <p>Update your username and manage your account</p>
+        </div>
+    </div>
+    <div class="col-lg-12 menu-and-treatment" style="display: flex; sans-serif;">
+        <div class="col-lg-4 menus " style="margin-top: 10px;">
+            <div class='menu-item general active'><a class="dropdown-item" style="width: 300px; margin-left: 1px;"
+                    href="/profiles/general">General</a></div>
+            <div hidden class="edit"><a class="dropdown-item" style="width: 300px; margin-left: 1px;"
+                    href="/profiles/editprofile">Edit
+                    Profile</a></div>
+            <div class='menu-item general active'><a class="dropdown-item" style="width: 300px; margin-left: 1px;"
+                    href="/profiles/editpassword">Password</a></div>
+            <div class='cut-across'></div>
+            <div class='menu-item' onclick="deleteUser()" style='color : red; margin-left: 20px;width: 300px;'>Delete
+                Account</div>
+        </div>
+        <div class="col-lg-8 ">
+            <form id="form-picture" method="post" action="/profiles/editAvatar/edit" enctype="multipart/form-data">
+                <div class="changeava">
+                    <img src="{{users.img}}" alt="" class="ava">
+                    <div class="form-ava">
+                        <input type="file" class="image-user" name="img" accept=".jpg, .png" /><br>
+                        <div class="btns">
+                            <button type="submit" class="btn btn-save" disabled>Save Picture</button>
+                            <a type="submit" data-img={{users.img}} href="" class="btn-del ">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form method="post" action="/profiles/editprofile/edit/?_method=PUT" style="margin-top: 20px;">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{users.hoTen}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Location</label>
+                    <input type="text" class="form-control" id="location" name="location" value="{{users.location}}">
+                </div>
+
+
+                <button type="submit" class="btn btn-primary" style="float: right;">Save Change</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+<form name="delete-form" method="post" action=""></form>
+
+<script>
+    var checkIMG = document.querySelector('.image-user')
+    var saveBtn = document.querySelector('.btn-save')
+    var deleteAva = document.querySelector('.btn-del')
+    var avartar = document.querySelector('.ava')
+    var deleteForm = document.forms['delete-form']
+    var dateBirth = document.querySelector('#dateOfBirth')
+    function formatDate(inputDate) {
+        const date = new Date(inputDate);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+
+        return `${day}-${month}-${year}`;
+    }
+   
+    else {
+        dateBirth.value = formatDate(dateBirth.value)
+    }
+
+
+    checkIMG.onchange = (e) => {
+        const value = e.target.value
+        if (!value) {
+
+            saveBtn.disabled = true
+
+        }
+        else {
+            saveBtn.disabled = false
+        }
+    }
+
+
+
+    deleteAva.addEventListener('click', (e) => {
+        e.preventDefault();
+        var linkava = avartar.src
+        var img = deleteAva.getAttribute('data-img')
+        if (linkava === "https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png") {
+
+            alert('Không thể xóa ảnh')
+
+        }
+        else {
+            deleteForm.action = "/profiles/deleteAvatar/edit/?_method=DELETE"
+            deleteForm.submit()
+        }
+
+
+
+    })
+
+
+
+</script>
+<script>
+    function deleteUser() {
+        $.ajax({
+            url: '/profiles/delete-user/?_method=DELETE',
+            type: 'POST'
+
+        })
+            .then(data => {
+                if (data.code === 200) {
+                    $.ajax({
+                        url: '/check-token', // Đường dẫn tới endpoint kiểm tra cookie
+                        type: 'GET',
+
+                    })
+                        .then(data => {
+                            setCookie("token", data.token, 0)
+
+                        })
+                    alert('Xóa account thành công')
+                    window.location.href = "/account/signin"
+                    return;
+                }
+                else {
+                    alert('Fail!')
+                }
+
+
+            })
+            .catch(error => {
+                console.log('Lỗi ròi')
+            })
+    }
+
+    $.ajax({
+        url: '/check-cookie', // Đường dẫn tới endpoint kiểm tra cookie
+        type: 'GET',
+
+    })
+        .then(res => {
+            if (res.code === 200) {
+
+
+            }
+        })
+        .catch(error => {
+            console.log('Lỗi hệ thống')
+        })
+</script>

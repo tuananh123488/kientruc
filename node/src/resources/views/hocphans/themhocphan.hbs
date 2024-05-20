@@ -1,0 +1,108 @@
+<div class="mt-4">
+    <form method="post" action="/hocphans/themhocphan/insert" class="container-fl px-2 py-3 text-lg-start my-2"
+        style="margin-left: 100px;">
+        <div class="form-row">
+            <div class="col">
+                <label for="id">Mã học phần</label>
+                <input type="text" class="form-control" id="_id" name="_id" style="width: 500px;">
+            </div>
+            <div class="col">
+                <label for="lopHocId" class="form-label">Tên lớp học</label>
+                <select name="lopHocId" id="lopHocId" class="form-control" style="width: 500px">
+                    {{#each lophocs}}
+                    <option value={{this._id}}>{{this.tenLopHoc}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="col">
+                <label for="khoa" class="form-label">Tên môn học</label><br>
+                <select name="monHocId" id="monHocId" class="form-control" style="width: 500px">
+                    {{#each monhocs}}
+                    <option value={{this._id}}>{{this.tenMonHoc}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="col">
+                <label for="khoa" class="form-label">Tên giáo viên</label><br>
+                <select name="giaoVienId" id="giaoVienId" class="form-control" style="width: 500px">
+                    {{#each giaoviens}}
+                    <option value={{this._id}}>{{this.username}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="col">
+                <label for="khoa" class="form-label">Tiết lý thuyết</label><br>
+                <select name="lyThuyet" id="lyThuyet" class="form-control" style="width: 500px">
+
+                    <option>Thứ 2 Tiết(1-3)</option>
+                    <option>Thứ 2 Tiết(4-6)</option>
+                    <option>Thứ 2 Tiết(7-9)</option>
+                    <option>Thứ 2 Tiết(10-12)</option>
+                    <option>Thứ 3 Tiết(1-3)</option>
+                    <option>Thứ 3 Tiết(4-6)</option>
+                    <option>Thứ 3 Tiết(7-9)</option>
+                    <option>Thứ 3 Tiết(10-12)</option>
+                    <option>Thứ 4 Tiết(1-3)</option>
+                    <option>Thứ 4 Tiết(4-6)</option>
+                    <option>Thứ 4 Tiết(7-9)</option>
+                    <option>Thứ 4 Tiết(10-12)</option>
+                    <option>Thứ 5 Tiết(1-3)</option>
+                    <option>Thứ 5 Tiết(4-6)</option>
+                    <option>Thứ 5 Tiết(7-9)</option>
+                    <option>Thứ 5 Tiết(10-12)</option>
+                    <option>Thứ 6 Tiết(1-3)</option>
+                    <option>Thứ 6 Tiết(4-6)</option>
+                    <option>Thứ 6 Tiết(7-9)</option>
+                    <option>Thứ 6 Tiết(10-12)</option>
+
+
+
+                </select>
+            </div>
+            <div class="col">
+                <label for="khoa" class="form-label">Tiết thực hành</label><br>
+                <select name="thucHanh" id="thucHanh" class="form-control" style="width: 500px">
+
+                    <option>Thứ 2 Tiết(1-3)</option>
+                    <option>Thứ 2 Tiết(4-6)</option>
+                    <option>Thứ 2 Tiết(7-9)</option>
+                    <option>Thứ 2 Tiết(10-12)</option>
+                    <option>Thứ 3 Tiết(1-3)</option>
+                    <option>Thứ 3 Tiết(4-6)</option>
+                    <option>Thứ 3 Tiết(7-9)</option>
+                    <option>Thứ 3 Tiết(10-12)</option>
+                    <option>Thứ 4 Tiết(1-3)</option>
+                    <option>Thứ 4 Tiết(4-6)</option>
+                    <option>Thứ 4 Tiết(7-9)</option>
+                    <option>Thứ 4 Tiết(10-12)</option>
+                    <option>Thứ 5 Tiết(1-3)</option>
+                    <option>Thứ 5 Tiết(4-6)</option>
+                    <option>Thứ 5 Tiết(7-9)</option>
+                    <option>Thứ 5 Tiết(10-12)</option>
+                    <option>Thứ 6 Tiết(1-3)</option>
+                    <option>Thứ 6 Tiết(4-6)</option>
+                    <option>Thứ 6 Tiết(7-9)</option>
+                    <option>Thứ 6 Tiết(10-12)</option>
+
+
+                </select>
+            </div>
+            <div class="col">
+                <label for="phongHoc" class="form-label">Phòng học</label>
+                <input type="text" class="form-control" id="phongHoc" name="phongHoc" style="width: 500px;">
+            </div>
+            <div class="col">
+                <label for="hocky" class="form-label">Học kỳ</label><br>
+                <select name="hocKyId" id="hocKyId" class="form-control" style="width: 500px">
+                    {{#each hockys}}
+                    <option value={{this._id}}>{{this.tenHocKy}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+
+        <div class="them" style="text-align: center;">
+            <button type="submit" class="btn btn-outline-success" style="width: 200px; margin-top: 50px;">Thêm</button>
+        </div>
+    </form>
+</div>
